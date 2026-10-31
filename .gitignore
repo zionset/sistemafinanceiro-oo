@@ -1,0 +1,21 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ambientes virtuais
+venv/
+env/
+.env
+
+# VS Code / IDEs
+.vscode/
+.idea/
+
+# Arquivos temporários
+*.log
+_ref_repo/
+
+# Banco de dados local (Nível 3)
+database.json
+
