@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block titulo %}Metas{% endblock %}
+{% block conteudo %}
+<h1>Metas de investimento</h1>
+
+<section class="duas-colunas">
+    <div class="cartao">
+        <h2>Nova meta</h2>
+        <p class="dica">Calcula o aporte mensal com juros compostos: PMT = FV·i / ((1+i)ⁿ − 1)</p>
+        <form method="post" class="formulario">
+            <label>Título <input name="titulo" placeholder="Ex: Reserva de emergência"
+                                 value="{{ simulacao.titulo if simulacao and simulacao.titulo != 'Simulação' else '' }}"></label>
+            <label>Valor alvo (R$) <input name="valor_alvo" type="number" step="0.01" min="0.01" required
+                                          value="{{ simulacao.valor_alvo if simulacao else '' }}"></label>
+            <div class="linha-campos">
+                <label>Prazo (meses) <input name="prazo_meses" type="number" min="1" required
+                                            value="{{ simulacao.prazo_meses if simulacao else '' }}"></label>
+                <label>Juros ao ano (%) <input name="taxa_juros_anual" type="number" step="0.01" min="0" required
+                                               value="{{ simulacao.taxa_juros_anual if simulacao else '' }}"></label>
+            </div>
+            <div class="acoes">
+                <button class="botao secundario" name="acao" value="simular" type="submit">Simular</button>
+                <button class="botao primario" name="acao" value="criar" type="submit">Salvar meta</button>
+            </div>
+        </form>
+
+        {% if simulacao %}
+        <div class="resultado-simulacao">
+            {% set total = simulacao.aporte_mensal * simulacao.prazo_meses %}
+            <span class="rotulo">Aporte mensal necessário</span>
+            <strong>{{ simulacao.aporte_mensal | moeda }}</strong>
+            <small>Você investe {{ total | moeda }} e os juros rendem {{ (simulacao.valor_alvo - total) | moeda }}.</small>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="cartao">
+        <h2>Minhas metas</h2>
+        {% for m in metas %}
+            {% set total = m.aporte_mensal * m.prazo_meses %}
+            <div class="item-meta grande">
+                <div>
+                    <strong>{{ m.titulo }}</strong>
+                    <span>{{ m.valor_alvo | moeda }} em {{ m.prazo_meses }} meses · {{ '%.2f' | format(m.taxa_juros_anual) }}% a.a.</span>
+                    <span class="aporte">{{ m.aporte_mensal | moeda }}/mês</span>
+                    <small>Juros cobrem {{ ((m.valor_alvo - total) / m.valor_alvo * 100) | round(1) }}% do alvo</small>
+                </div>
+                <form method="post" action="{{ url_for('excluir_meta', id_meta=m.id) }}"
+                      data-confirmar="Excluir a meta &quot;{{ m.titulo }}&quot;?">
+                    <button class="botao pequeno perigo" type="submit">Excluir</button>
+                </form>
+            </div>
+        {% else %}
+            <p class="vazio">Nenhuma meta cadastrada.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

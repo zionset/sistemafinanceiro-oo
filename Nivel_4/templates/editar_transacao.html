@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block titulo %}Editar transação{% endblock %}
+{% block conteudo %}
+<div class="cartao estreito">
+    <h1>Editar {{ t.tipo | lower }} #{{ t.id }}</h1>
+    <form method="post" class="formulario">
+        <label>Descrição <input name="descricao" value="{{ t.descricao }}" required></label>
+        <div class="linha-campos">
+            <label>Valor (R$) <input name="valor" type="number" step="0.01" min="0.01" value="{{ '%.2f' | format(t.valor) }}" required></label>
+            <label>Data <input name="data" type="date" value="{{ t.data | data_iso }}" required></label>
+        </div>
+        <p class="dica">Categoria: {{ t.categoria }}{% if t.forma_pagamento %} · Pagamento: {{ t.forma_pagamento }}{% endif %}</p>
+        <div class="acoes">
+            <a class="botao secundario" href="{{ url_for('transacoes') }}">Cancelar</a>
+            <button class="botao primario" type="submit">Salvar alterações</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

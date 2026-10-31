@@ -1,0 +1,19 @@
+<div class="linha-transacao">
+    <span class="selo selo-{{ t.tipo | lower }}">{{ t.tipo }}</span>
+    <div class="info">
+        <strong>{{ t.descricao }}</strong>
+        <small>#{{ t.id }} · {{ t.data }} · {{ t.categoria }}{% if t.forma_pagamento %} · {{ t.forma_pagamento }}{% endif %}</small>
+    </div>
+    <span class="valor {{ 'positivo' if t.tipo == 'Receita' else 'negativo' }}">
+        {{ '+' if t.tipo == 'Receita' else '−' }} {{ t.valor | moeda }}
+    </span>
+    {% if com_acoes %}
+    <div class="acoes-linha">
+        <a class="botao pequeno secundario" href="{{ url_for('editar_transacao', id_transacao=t.id) }}">Editar</a>
+        <form method="post" action="{{ url_for('excluir_transacao', id_transacao=t.id) }}"
+              data-confirmar="Excluir a transação &quot;{{ t.descricao }}&quot;?">
+            <button class="botao pequeno perigo" type="submit">Excluir</button>
+        </form>
+    </div>
+    {% endif %}
+</div>

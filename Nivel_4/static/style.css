@@ -1,0 +1,262 @@
+/* ===== Finance - tema escuro minimalista ===== */
+
+/* Cores do site. Para mudar o tema, basta trocar estes valores. */
+:root {
+    color-scheme: dark;          /* calendário, barras de rolagem etc. também ficam escuros */
+    --fundo: #0e0e10;            /* fundo da página */
+    --cartao: #17171a;           /* fundo dos cartões e janelas */
+    --borda: #2a2a2f;
+    --texto: #ececef;
+    --texto-suave: #8b8b93;      /* textos secundários */
+    --verde: #4ade80;            /* receitas e sucesso */
+    --vermelho: #f87171;         /* despesas, erros e excluir */
+    --amarelo: #fbbf24;          /* avisos */
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: var(--fundo);
+    color: var(--texto);
+    line-height: 1.5;
+}
+
+a { color: var(--texto); }
+h1 { font-size: 1.4rem; font-weight: 600; margin: 0 0 1.5rem; }
+h2 { font-size: 0.95rem; font-weight: 600; margin: 0 0 1rem; }
+small { color: var(--texto-suave); }
+
+/* Textos e cores de apoio */
+.positivo { color: var(--verde); }
+.negativo { color: var(--vermelho); }
+.rotulo   { font-size: 0.8rem; color: var(--texto-suave); }
+.dica     { font-size: 0.85rem; color: var(--texto-suave); }
+.vazio    { font-size: 0.9rem; color: var(--texto-suave); text-align: center; margin: 0; padding: 1rem 0; }
+
+
+/* ----- Barra superior ----- */
+.topo {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0.9rem 2rem;
+    border-bottom: 1px solid var(--borda);
+}
+.topo nav { display: flex; gap: 1.5rem; flex: 1; }
+.marca { color: var(--texto); font-weight: 600; text-decoration: none; }
+.marca.grande { display: block; font-size: 1.5rem; text-align: center; }
+
+/* Links do menu e filtros: cinza; o ativo fica branco e sublinhado */
+.topo nav a, .filtro {
+    color: var(--texto-suave);
+    text-decoration: none;
+    padding-bottom: 0.2rem;
+}
+.topo nav a.ativo, .filtro.ativo {
+    color: var(--texto);
+    border-bottom: 1px solid var(--texto);
+}
+.filtros { display: flex; gap: 1.2rem; margin-bottom: 1rem; font-size: 0.9rem; }
+
+/* Círculo com a inicial do usuário */
+.avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 1px solid var(--borda);
+    background: var(--cartao);
+    color: var(--texto);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+/* ----- Layout das páginas ----- */
+.conteudo { max-width: 1000px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+.cartao {
+    background: var(--cartao);
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    padding: 1.3rem;
+    margin-bottom: 1rem;
+}
+.cartao.estreito { max-width: 520px; margin: 0 auto; }
+
+/* Título à esquerda e link/botão à direita */
+.cartao-cabecalho, .cabecalho-pagina {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.cartao-cabecalho a { font-size: 0.85rem; color: var(--texto-suave); text-decoration: none; }
+.cartao-cabecalho h2, .cabecalho-pagina h1 { margin: 0; }
+
+/* Grades: 3 cartões de resumo no painel e 2 colunas em painel/metas */
+.grade-resumo { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+.duas-colunas { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+.resumo strong { display: block; font-size: 1.6rem; font-weight: 600; }
+
+/* Barra "quanto das receitas já foi gasto" */
+.barra { height: 4px; background: var(--borda); border-radius: 4px; margin: 0.7rem 0 0.4rem; }
+.barra-preenchida { height: 100%; background: var(--texto); border-radius: 4px; }
+.barra-preenchida.alerta-barra { background: var(--vermelho); }
+
+
+/* ----- Listas de transações e metas ----- */
+/* Cada item tem uma linha separando do próximo (menos o último) */
+.linha-transacao, .item-meta { padding: 0.8rem 0; border-bottom: 1px solid var(--borda); }
+.linha-transacao:last-child, .item-meta:last-child { border-bottom: none; }
+
+/* Transação: selo | descrição | valor | botões, lado a lado */
+.linha-transacao { display: flex; align-items: center; gap: 1rem; }
+.info { flex: 1; display: flex; flex-direction: column; }
+.info small { font-size: 0.8rem; }
+.valor { white-space: nowrap; }
+.acoes-linha { display: flex; gap: 0.4rem; }
+
+/* Etiqueta "Receita"/"Despesa" */
+.selo {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid var(--borda);
+    border-radius: 4px;
+}
+.selo-receita { color: var(--verde); }
+.selo-despesa { color: var(--vermelho); }
+
+/* Metas no painel (uma embaixo da outra) e na página de metas (com botão ao lado) */
+.item-meta { display: flex; flex-direction: column; }
+.item-meta.grande { flex-direction: row; align-items: center; justify-content: space-between; }
+.item-meta.grande > div { display: flex; flex-direction: column; }
+.item-meta span, .item-meta small { font-size: 0.85rem; color: var(--texto-suave); }
+.item-meta .aporte { font-size: 1.1rem; font-weight: 600; color: var(--texto); }
+
+.resultado-simulacao {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.2rem;
+    padding: 1rem;
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+}
+.resultado-simulacao strong { font-size: 1.5rem; }
+
+
+/* ----- Formulários ----- */
+.formulario { display: flex; flex-direction: column; gap: 0.9rem; }
+.formulario label {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+}
+.formulario input, .formulario select {
+    font: inherit;
+    color: var(--texto);
+    background: var(--fundo);
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+}
+.formulario input:focus, .formulario select:focus { outline: none; border-color: var(--texto-suave); }
+.linha-campos { display: flex; gap: 0.8rem; }
+
+/* Botões "Receita / Despesa" da janela de nova transação */
+.seletor-tipo { display: flex; gap: 0.5rem; }
+.seletor-tipo label {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0.55rem;
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    cursor: pointer;
+}
+.seletor-tipo input { accent-color: var(--texto); }   /* bolinha branca em vez de azul */
+.seletor-tipo label:has(input:checked) { color: var(--texto); border-color: var(--texto); }
+
+
+/* ----- Botões ----- */
+.botao {
+    font: inherit;
+    font-size: 0.9rem;
+    padding: 0.55rem 1rem;
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--texto);
+    text-decoration: none;
+    cursor: pointer;
+}
+.botao.primario { background: var(--texto); color: var(--fundo); }   /* botão principal: branco */
+.botao.perigo { color: var(--vermelho); }                             /* excluir */
+.botao.pequeno { padding: 0.25rem 0.65rem; font-size: 0.8rem; }
+.botao.largo { width: 100%; }
+.botao:hover { border-color: var(--texto-suave); }
+
+.acoes { display: flex; gap: 0.5rem; justify-content: flex-end; }
+.acoes form { margin: 0; }
+
+
+/* ----- Janelas (dialog) ----- */
+.janela {
+    width: min(460px, 92vw);
+    padding: 1.4rem;
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    background: var(--cartao);
+    color: var(--texto);
+}
+.janela::backdrop { background: rgba(0, 0, 0, 0.7); }   /* fundo escurecido atrás da janela */
+.janela-cabecalho { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.janela-cabecalho h3 { margin: 0; font-size: 1rem; }
+.janela p { color: var(--texto-suave); }
+.fechar { border: none; background: none; font-size: 1.4rem; color: var(--texto-suave); cursor: pointer; }
+
+
+/* ----- Mensagens (flash) ----- */
+.alerta {
+    padding: 0.7rem 1rem;
+    margin-bottom: 1.2rem;
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    background: var(--cartao);
+    font-size: 0.9rem;
+}
+.alerta-sucesso { color: var(--verde); }
+.alerta-erro { color: var(--vermelho); }
+.alerta-aviso { color: var(--amarelo); }
+
+
+/* ----- Telas de login e cadastro (cartão centralizado) ----- */
+.acesso {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+.cartao-acesso, .acesso .alerta { width: min(380px, 100%); }
+.cartao-acesso { padding: 2rem; }
+.subtitulo, .rodape-cartao { text-align: center; font-size: 0.9rem; color: var(--texto-suave); }
+.subtitulo { margin: 0.5rem 0 1.5rem; }
+.rodape-cartao { margin: 1.2rem 0 0; }
+
+
+/* ----- Celular: uma coluna só ----- */
+@media (max-width: 760px) {
+    .topo { padding: 0.8rem 1rem; gap: 1rem; }
+    .topo .marca { display: none; }
+    .conteudo { padding: 1.5rem 1rem; }
+    .grade-resumo, .duas-colunas { grid-template-columns: 1fr; }
+    .linha-transacao { flex-wrap: wrap; }
+    .linha-campos { flex-direction: column; }
+}

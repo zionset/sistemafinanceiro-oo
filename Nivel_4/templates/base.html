@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Gestão Financeira{% endblock %} · Finance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="{% block classe_body %}{% endblock %}">
+    {% if usuario %}
+    <header class="topo">
+        <a class="marca" href="{{ url_for('painel') }}">Finance</a>
+        <nav>
+            <a href="{{ url_for('painel') }}" class="{{ 'ativo' if request.endpoint == 'painel' }}">Painel</a>
+            <a href="{{ url_for('transacoes') }}" class="{{ 'ativo' if request.endpoint in ('transacoes', 'editar_transacao') }}">Transações</a>
+            <a href="{{ url_for('metas') }}" class="{{ 'ativo' if request.endpoint == 'metas' }}">Metas</a>
+        </nav>
+        <div class="perfil">
+            <button class="avatar" type="button" onclick="document.getElementById('janela-conta').showModal()" title="Minha conta">
+                {{ usuario.nome[:1] | upper }}
+            </button>
+        </div>
+    </header>
+
+    <dialog id="janela-conta" class="janela">
+        <div class="janela-cabecalho">
+            <h3>Minha conta</h3>
+            <button class="fechar" type="button" onclick="this.closest('dialog').close()">×</button>
+        </div>
+        <p>{{ usuario.visualizar_usuario() }}</p>
+        <div class="acoes">
+            <a class="botao secundario" href="{{ url_for('logout') }}">Sair</a>
+            <form method="post" action="{{ url_for('excluir_conta') }}"
+                  data-confirmar="Excluir sua conta e TODOS os seus dados? Essa ação não pode ser desfeita.">
+                <button class="botao perigo" type="submit">Excluir conta</button>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- Janela de confirmação usada por todo formulário com data-confirmar -->
+    <dialog id="janela-confirmar" class="janela">
+        <div class="janela-cabecalho">
+            <h3>Confirmar exclusão</h3>
+            <button class="fechar" type="button" onclick="this.closest('dialog').close()">×</button>
+        </div>
+        <p id="texto-confirmar"></p>
+        <div class="acoes">
+            <button class="botao secundario" type="button" onclick="this.closest('dialog').close()">Cancelar</button>
+            <button class="botao perigo" type="button" id="botao-confirmar">Excluir</button>
+        </div>
+    </dialog>
+    <script>
+        let formularioPendente = null;
+        document.addEventListener('submit', (evento) => {
+            const formulario = evento.target;
+            if (!formulario.dataset.confirmar) return;
+            evento.preventDefault();
+            formularioPendente = formulario;
+            document.getElementById('texto-confirmar').textContent = formulario.dataset.confirmar;
+            document.getElementById('janela-confirmar').showModal();
+        });
+        document.getElementById('botao-confirmar').addEventListener('click', () => {
+            // submit() envia direto, sem disparar o evento 'submit' de novo
+            if (formularioPendente) formularioPendente.submit();
+        });
+    </script>
+    {% endif %}
+
+    <main class="{% block classe_main %}conteudo{% endblock %}">
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% for categoria, mensagem in mensagens %}
+                <div class="alerta alerta-{{ categoria }}">{{ mensagem }}</div>
+            {% endfor %}
+        {% endwith %}
+        {% block conteudo %}{% endblock %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block titulo %}Criar conta{% endblock %}
+{% block classe_body %}tela-acesso{% endblock %}
+{% block classe_main %}acesso{% endblock %}
+{% block conteudo %}
+<div class="cartao cartao-acesso">
+    <div class="marca grande">Finance</div>
+    <p class="subtitulo">Crie sua conta. Seus dados ficam separados dos outros usuários.</p>
+    <form method="post" class="formulario">
+        <label>Nome
+            <input name="nome" placeholder="Como quer ser chamado(a)">
+        </label>
+        <label>Login
+            <input name="login" required autocomplete="username">
+        </label>
+        <label>Senha
+            <input name="senha" type="password" required autocomplete="new-password">
+        </label>
+        <button class="botao primario largo" type="submit">Criar conta</button>
+    </form>
+    <p class="rodape-cartao">Já tem conta? <a href="{{ url_for('login') }}">Entrar</a></p>
+</div>
+{% endblock %}

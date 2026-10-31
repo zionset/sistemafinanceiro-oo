@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block titulo %}Painel{% endblock %}
+{% block conteudo %}
+<h1>Olá, {{ usuario.nome }}</h1>
+
+<section class="grade-resumo">
+    <div class="cartao resumo destaque">
+        <span class="rotulo">Saldo atual</span>
+        <strong class="{{ 'negativo' if saldo < 0 else '' }}">{{ saldo | moeda }}</strong>
+    </div>
+    <div class="cartao resumo">
+        <span class="rotulo">Receitas</span>
+        <strong class="positivo">{{ receitas | moeda }}</strong>
+    </div>
+    <div class="cartao resumo">
+        <span class="rotulo">Despesas</span>
+        <strong class="negativo">{{ despesas | moeda }}</strong>
+    </div>
+</section>
+
+{% if receitas or despesas %}
+<div class="cartao">
+    <span class="rotulo">Quanto das receitas já foi gasto</span>
+    {% set pct = (despesas / receitas * 100) if receitas else 100 %}
+    <div class="barra"><div class="barra-preenchida {{ 'alerta-barra' if pct > 80 }}" style="width: {{ [pct, 100] | min }}%"></div></div>
+    <small>{{ '%.0f' | format(pct) }}% das receitas</small>
+</div>
+{% endif %}
+
+<section class="duas-colunas">
+    <div class="cartao">
+        <div class="cartao-cabecalho">
+            <h2>Últimas transações</h2>
+            <a href="{{ url_for('transacoes') }}">Ver todas →</a>
+        </div>
+        {% for t in ultimas %}
+            {% include "_transacao.html" %}
+        {% else %}
+            <p class="vazio">Nenhuma transação ainda. <a href="{{ url_for('transacoes') }}">Registrar a primeira</a></p>
+        {% endfor %}
+    </div>
+    <div class="cartao">
+        <div class="cartao-cabecalho">
+            <h2>Metas de investimento</h2>
+            <a href="{{ url_for('metas') }}">Gerenciar →</a>
+        </div>
+        {% for m in metas %}
+            <div class="item-meta">
+                <strong>{{ m.titulo }}</strong>
+                <span>{{ m.aporte_mensal | moeda }}/mês por {{ m.prazo_meses }} meses → {{ m.valor_alvo | moeda }}</span>
+            </div>
+        {% else %}
+            <p class="vazio">Nenhuma meta. <a href="{{ url_for('metas') }}">Criar uma meta</a></p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

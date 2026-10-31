@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block titulo %}Entrar{% endblock %}
+{% block classe_body %}tela-acesso{% endblock %}
+{% block classe_main %}acesso{% endblock %}
+{% block conteudo %}
+<div class="cartao cartao-acesso">
+    <div class="marca grande">Finance</div>
+    <p class="subtitulo">Controle suas receitas, despesas e metas de investimento.</p>
+    <form method="post" class="formulario">
+        <label>Login
+            <input name="login" required autofocus autocomplete="username">
+        </label>
+        <label>Senha
+            <input name="senha" type="password" required autocomplete="current-password">
+        </label>
+        <button class="botao primario largo" type="submit">Entrar</button>
+    </form>
+    <p class="rodape-cartao">Não tem conta? <a href="{{ url_for('cadastro') }}">Cadastre-se</a></p>
+</div>
+{% endblock %}
