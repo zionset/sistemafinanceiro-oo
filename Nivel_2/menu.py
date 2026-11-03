@@ -1,5 +1,9 @@
-from Nivel_1.classes import SistemaFinanceiro
-from Nivel_2.funcoes_menu import *
+from package import SistemaFinanceiro
+from Nivel_2.funcoes_menu import (
+    pausar, cadastrar_usuario, fazer_login, listar_usuarios, excluir_conta,
+    registrar_receita, registrar_despesa, listar_transacoes, editar_transacao, excluir_transacao,
+    criar_meta, simular_meta, listar_metas, excluir_meta,
+)
 
 
 def nao_salvar(sistema):

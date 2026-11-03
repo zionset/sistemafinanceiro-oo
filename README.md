@@ -23,13 +23,31 @@ O objetivo do projeto é ajudar a organizar o dinheiro do dia a dia: saber quant
 
 Como este projeto foi desenvolvido para a disciplina de Orientação a Objetos, o código foi estruturado em Níveis:
 
-* **Nível 1 (Modelos/Classes):** a base do projeto, com herança, polimorfismo, composição, associação e dependência. Os diagramas UML estão no [DIAGRAMAS.md](DIAGRAMAS.md).
+* **Nível 1 (Modelos/Classes):** a base do projeto, com herança, polimorfismo, composição, associação e dependência. As classes ficam na pasta `package/` e os diagramas UML estão no [DIAGRAMAS.md](DIAGRAMAS.md).
 
 * **Nível 2 (CRUD):** menu no terminal com acesso a todas as funcionalidades.
 
 * **Nível 3 (Persistência):** onde foi implantado o banco de dados JSON (`database.json`).
 
 * **Nível 4 (Interface Web - Flask):** onde o projeto deixou de ser só terminal e ganhou um site.
+
+### Organização das pastas
+
+```
+sistemafinanceiro-oo/
+├── package/              # módulos com as classes do sistema
+│   ├── usuario.py        # Usuario
+│   ├── categoria.py      # Categoria
+│   ├── transacao.py      # Transacao (abstrata), Receita, Despesa
+│   ├── investimento.py   # MetaInvestimento, CalculadoraInvestimento
+│   └── sistema.py        # SistemaFinanceiro
+├── Nivel_1/              # demonstração e testes das classes
+├── Nivel_2/              # menu no terminal (CRUD)
+├── Nivel_3/              # persistência em JSON
+├── Nivel_4/              # interface web (Flask)
+├── img/                  # diagramas UML
+└── main.py               # terminal com banco de dados
+```
 
 ---
 
@@ -54,6 +72,6 @@ Roda o CRUD do Nível 2 salvando tudo no banco do Nível 3.
 * Para rodar só o Nível 2, sem banco: `python -m Nivel_2.menu`
 
 ### 3. Classes do Nível 1
-Para ver a demonstração e rodar os testes, entre na pasta `Nivel_1`:
-* Demonstração: `python main.py`
-* Testes: `python test_sistema.py`
+Para ver a demonstração e rodar os testes (a partir da raiz do projeto):
+* Demonstração: `python -m Nivel_1.main`
+* Testes: `python -m unittest Nivel_1.test_sistema -v`

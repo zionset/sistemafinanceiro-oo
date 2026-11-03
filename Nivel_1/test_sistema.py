@@ -1,5 +1,5 @@
 import unittest
-from classes import Usuario, Categoria, Transacao, Receita, Despesa, MetaInvestimento, CalculadoraInvestimento, SistemaFinanceiro
+from package import Usuario, Categoria, Transacao, Receita, Despesa, MetaInvestimento, CalculadoraInvestimento, SistemaFinanceiro
 
 
 class TestClasses(unittest.TestCase):

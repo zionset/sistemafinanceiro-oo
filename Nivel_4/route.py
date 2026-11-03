@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from Nivel_1.classes import MetaInvestimento, CalculadoraInvestimento
+from package import MetaInvestimento, CalculadoraInvestimento
 from Nivel_3.dados import carregar_dados, salvar_dados
 
 app = Flask(__name__)

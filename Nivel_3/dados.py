@@ -1,6 +1,6 @@
 import json
 import os
-from Nivel_1.classes import SistemaFinanceiro, Usuario, Categoria, Receita, Despesa, MetaInvestimento, CalculadoraInvestimento
+from package import SistemaFinanceiro, Usuario, Categoria, Receita, Despesa, MetaInvestimento, CalculadoraInvestimento
 
 banco_dados = "database.json"
 

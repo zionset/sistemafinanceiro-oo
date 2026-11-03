@@ -1,5 +1,8 @@
-"""Demonstração do Nível 1: mostra cada relação de POO funcionando."""
-from classes import SistemaFinanceiro, Transacao
+"""Demonstração do Nível 1: mostra cada relação de POO funcionando.
+
+Rode a partir da raiz do projeto: python -m Nivel_1.main
+"""
+from package import SistemaFinanceiro, Transacao
 
 sistema = SistemaFinanceiro()
 

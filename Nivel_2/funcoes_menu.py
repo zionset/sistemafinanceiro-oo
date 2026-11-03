@@ -1,4 +1,4 @@
-from Nivel_1.classes import MetaInvestimento, CalculadoraInvestimento
+from package import MetaInvestimento, CalculadoraInvestimento
 
 
 def pausar():
