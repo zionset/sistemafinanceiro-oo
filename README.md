@@ -1,10 +1,10 @@
-# 💼 SISTEMA DE GESTÃO FINANCEIRA
+# SISTEMA DE GESTÃO FINANCEIRA
 
 Foi desenvolvido um sistema para gestão financeira pessoal, com controle de receitas e despesas e planejamento de metas de investimento.
 
 ---
 
-## 🚀 Sobre o projeto
+## Sobre o projeto
 
 O objetivo do projeto é ajudar a organizar o dinheiro do dia a dia: saber quanto entrou, quanto saiu e quanto é preciso guardar por mês para alcançar uma meta.
 
@@ -19,7 +19,7 @@ O objetivo do projeto é ajudar a organizar o dinheiro do dia a dia: saber quant
 
 ---
 
-## 🏗️ Estrutura e Arquitetura do Projeto
+## Estrutura e Arquitetura do Projeto
 
 Como este projeto foi desenvolvido para a disciplina de Orientação a Objetos, o código foi estruturado em Níveis:
 
@@ -51,7 +51,7 @@ sistemafinanceiro-oo/
 
 ---
 
-## 💻 Como Executar o Projeto
+## Como Executar o Projeto
 
 Antes de escolher a forma de rodar, faça o download do projeto clonando este repositório:
 
